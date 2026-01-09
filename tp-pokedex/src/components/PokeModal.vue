@@ -1,0 +1,59 @@
+<template>
+  <div class="modal-overlay" @click.self="$emit('close')">
+    <div class="modal-content">
+      <button class="close-btn" @click="$emit('close')">X</button>
+      
+      <img :src="pokemon.sprites.regular" :alt="pokemon.name.fr">
+      <h2>{{ pokemon.name.fr }}</h2>
+      
+      <div class="stats">
+        <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
+        <p><strong>Taille :</strong> {{ pokemon.height }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+// Le composant "écoute" les données envoyées par le parent
+defineProps({
+  pokemon: Object
+})
+
+// Le composant définit quel signal il peut renvoyer au parent
+defineEmits(['close'])
+</script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  min-width: 300px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>

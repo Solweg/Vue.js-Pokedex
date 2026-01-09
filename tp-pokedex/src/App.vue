@@ -2,16 +2,21 @@
   <Header />
 
   <main>
-    <p v-if="pokemons.length === 0" class="loader">Chargement des Pokémon...</p>
     
     <div class="container">
       <PokeCard 
         v-for="p in pokemons" 
         :key="p.pokedex_id" 
         :pokemon="p" 
-        @click="selectedPokemon = p"
+        @click="openModal(p)"
       />
     </div>
+
+    <PokeModal 
+      v-if="selectedPokemon" 
+      :pokemon="selectedPokemon" 
+      @close="selectedPokemon = null" 
+    />
 
     </main>
 </template>
@@ -20,6 +25,7 @@
 import { ref, onMounted } from 'vue'
 import Header from './components/Header.vue'
 import PokeCard from './components/PokeCard.vue'
+import PokeModal from './components/PokeModal.vue' // AJOUT : Il manquait l'import de la modale ici
 
 const pokemons = ref([])
 const selectedPokemon = ref(null) // Contient le Pokémon à afficher dans la modale
