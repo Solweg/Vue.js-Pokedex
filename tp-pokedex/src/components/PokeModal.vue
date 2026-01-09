@@ -1,11 +1,12 @@
 <template>
   <div class="modal-overlay" @click.self="$emit('close')">
+
     <div class="modal-content">
       <button class="close-btn" @click="$emit('close')">X</button>
-      
+
       <img :src="pokemon.sprites.regular" :alt="pokemon.name.fr">
       <h2>{{ pokemon.name.fr }}</h2>
-      
+
       <div class="stats">
         <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
         <p><strong>Taille :</strong> {{ pokemon.height }}</p>
@@ -15,12 +16,13 @@
 </template>
 
 <script setup>
-// Listen
+
+//Réception du Pokémon depuis App.vue
 defineProps({
   pokemon: Object
 })
 
-// Le composant définit quel signal il peut renvoyer au parent
+//fermeture modale
 defineEmits(['close'])
 </script>
 
@@ -31,7 +33,7 @@ defineEmits(['close'])
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +57,6 @@ defineEmits(['close'])
   background: none;
   font-size: 20px;
   cursor: pointer;
-  color:black;
+  color: black;
 }
 </style>
