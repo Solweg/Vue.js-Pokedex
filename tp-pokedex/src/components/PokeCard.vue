@@ -21,7 +21,7 @@ defineProps({
   cursor: pointer;
   transition: all 0.3s ease;
   background: white;
-  width: 160px;
+  width: 300px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 .card:hover {
@@ -29,8 +29,7 @@ defineProps({
   box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 .poke-img {
-  width: 120px;
-  height: 120px;
+  width: 250px;
 }
 .id-tag {
   font-size: 0.8rem;

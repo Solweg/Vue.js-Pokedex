@@ -11,6 +11,7 @@
     padding: 1rem;
     margin-bottom: 2rem;
     text-align: center;
+    border-radius: 20%;
 }
 
 h1 {

@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-// Le composant "écoute" les données envoyées par le parent
+// Listen
 defineProps({
   pokemon: Object
 })
@@ -39,7 +39,7 @@ defineEmits(['close'])
 }
 
 .modal-content {
-  background: white;
+  background: rgb(227, 233, 243);
   padding: 30px;
   border-radius: 20px;
   text-align: center;
@@ -55,5 +55,6 @@ defineEmits(['close'])
   background: none;
   font-size: 20px;
   cursor: pointer;
+  color:black;
 }
 </style>
