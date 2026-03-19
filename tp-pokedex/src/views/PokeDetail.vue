@@ -16,7 +16,13 @@
         <p>Shiny</p>
       </div>
       <div class="detail-title">
-        <h1>{{ pokemon.name.fr }}</h1>
+        <h1>
+          {{ pokemon.name.fr }}
+          <!-- Étoile favori -->
+          <span class="star" @click="toggleFavourite">
+            {{ isFav ? '⭐' : '☆' }}
+          </span>
+        </h1>
         <p class="subtitle">{{ pokemon.name.en }} / {{ pokemon.name.jp }}</p>
         <p><strong>Catégorie :</strong> {{ pokemon.category }}</p>
         <p><strong>Génération :</strong> {{ pokemon.generation }}</p>
@@ -90,19 +96,33 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useFavouritesStore } from '../stores/favourites'
 
 const route = useRoute()
 const router = useRouter()
+const store = useFavouritesStore()
 const pokemon = ref(null)
 
 // id réactif basé sur l'URL
 const id = ref(route.params.id)
 
+// Vérifie si ce pokémon est favori
+const isFav = computed(() => store.isFavourite(parseInt(id.value)))
+
+// Ajoute ou retire des favoris
+const toggleFavourite = () => {
+  if (isFav.value) {
+    store.removeFavourite(parseInt(id.value))
+  } else {
+    store.addFavourite(pokemon.value)
+  }
+}
+
 // Fonction de chargement
 const loadPokemon = async (pokemonId) => {
-  pokemon.value = null // reset pour afficher le loader
+  pokemon.value = null
   try {
     const response = await fetch(`https://tyradex.app/api/v1/pokemon/${pokemonId}`)
     pokemon.value = await response.json()
@@ -204,6 +224,20 @@ const nextPokemon = () => {
 .detail-title h1 {
   margin: 0 0 5px 0;
   color: blueviolet;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.star {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.star:hover {
+  transform: scale(1.3);
 }
 
 .subtitle {

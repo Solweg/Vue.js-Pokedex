@@ -3,7 +3,13 @@
     <div class="modal-content">
       <button class="close-btn" @click="$emit('close')">X</button>
       <img :src="pokemon.sprites.regular" :alt="pokemon.name.fr">
-      <h2>{{ pokemon.name.fr }}</h2>
+      <h2>
+        {{ pokemon.name.fr }}
+        <!-- Étoile favori -->
+        <span class="star" @click="toggleFavourite">
+          {{ isFav ? '⭐' : '☆' }}
+        </span>
+      </h2>
       <div class="stats">
         <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
         <p><strong>Taille :</strong> {{ pokemon.height }}</p>
@@ -15,7 +21,9 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useFavouritesStore } from '../stores/favourites'
 
 // Réception du Pokémon depuis PokeList.vue
 const props = defineProps({
@@ -29,6 +37,21 @@ defineEmits(['close'])
 const router = useRouter()
 const goToDetail = () => {
   router.push(`/detail/${props.pokemon.pokedex_id}`)
+}
+
+// Store favoris
+const store = useFavouritesStore()
+
+// Vérifie si ce pokémon est favori
+const isFav = computed(() => store.isFavourite(Number(props.pokemon.pokedex_id)))
+
+// Ajoute ou retire des favoris
+const toggleFavourite = () => {
+  if (isFav.value) {
+    store.removeFavourite(Number(props.pokemon.pokedex_id))
+  } else {
+    store.addFavourite(props.pokemon)
+  }
 }
 </script>
 
@@ -64,6 +87,23 @@ const goToDetail = () => {
   font-size: 20px;
   cursor: pointer;
   color: black;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.star {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.star:hover {
+  transform: scale(1.3);
 }
 
 .detail-btn {

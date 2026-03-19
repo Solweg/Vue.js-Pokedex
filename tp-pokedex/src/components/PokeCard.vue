@@ -2,7 +2,6 @@
   <div class="card">
     <img :src="pokemon.sprites.regular" :alt="pokemon.name.fr" class="poke-img">
     <h3>{{ pokemon.name.fr }}</h3>
-
     <!-- Étoile favori - stopPropagation pour ne pas ouvrir la modale au clic -->
     <span class="star" @click.stop="toggleFavourite">
       {{ isFav ? '⭐' : '☆' }}
@@ -20,13 +19,13 @@ const props = defineProps({
 
 const store = useFavouritesStore()
 
-// Vérifie si ce pokémon est favori
-const isFav = computed(() => store.isFavourite(props.pokemon.pokedex_id))
+// Vérifie si ce pokémon est favori (Number() pour éviter les problèmes de type)
+const isFav = computed(() => store.isFavourite(Number(props.pokemon.pokedex_id)))
 
 // Ajoute ou retire des favoris
 const toggleFavourite = () => {
   if (isFav.value) {
-    store.removeFavourite(props.pokemon.pokedex_id)
+    store.removeFavourite(Number(props.pokemon.pokedex_id))
   } else {
     store.addFavourite(props.pokemon)
   }
