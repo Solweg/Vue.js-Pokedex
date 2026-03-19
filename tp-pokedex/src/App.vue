@@ -35,7 +35,7 @@ const openModal = (pokemon) => {
 onMounted(async () => {
   try {
     // Appel à l'API Tyradex
-    const response = await fetch('https://tyradex.vercel.app/api/v1/pokemon')
+    const response = await fetch('https://tyradex.app/api/v1/pokemon')
     const data = await response.json()
 
     // Retire l'élément 0 
