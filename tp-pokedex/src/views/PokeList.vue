@@ -124,7 +124,7 @@ main {
 }
 
 .search-wrapper :hover {
-  background: linear-gradient(135deg,#892be281, #892be2 );
+  background: linear-gradient(135deg,#892be281, #892be2, );
   cursor: pointer;
 }
 </style>

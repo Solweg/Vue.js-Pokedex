@@ -4,6 +4,7 @@
     <nav>
       <RouterLink to="/">Liste</RouterLink>
       <RouterLink to="/detail">Détail</RouterLink>
+      <RouterLink to="/favourites">Favoris</RouterLink>
     </nav>
   </header>
 </template>
